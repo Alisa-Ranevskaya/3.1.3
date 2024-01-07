@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <style>table th, table td {padding: 15px;}</style>
+</head>
+<body>
+
+<h1>Управление пользователями</h1>
+
+<button>
+    <a th:href="@{/admin/addUser}">Create new user</a>
+</button>
+
+<button onclick="location.href='/user'">Обо мне</button>
+
+<table border="2">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User Role</th>
+        <th>Login</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="user : ${users}">
+        <tr>
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getRoles()}"></td>
+            <td th:text="${user.getLogin()}"></td>
+            <td th:text="${user.getFirstName()}"></td>
+            <td th:text="${user.getLastName()}"></td>
+            <td th:text="${user.getAge()}"></td>
+            <td>
+
+                <button>
+                    <a th:href="@{/admin/update/{id}(id=${user.id})}">Update</a>
+                </button>
+
+                <form th:action="@{/admin/deleteUser/{id}(id=${user.id})}">
+                    <button type="submit">Delete</button>
+                </form>
+
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+<button onclick="location.href='/logout'">Logout</button>
+
+</body>
+</html>
