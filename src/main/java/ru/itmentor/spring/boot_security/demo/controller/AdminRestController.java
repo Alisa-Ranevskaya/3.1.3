@@ -43,32 +43,4 @@ public class AdminRestController {
         }
     }
 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User updatedUser,
-                                           @RequestParam("authorities") Set<String> values) {
-        User user = userService.getUserById(id);
-        if (user != null) {
-            user.setFirstName(updatedUser.getFirstName());
-            user.setLastName(updatedUser.getLastName());
-            user.setAge(updatedUser.getAge());
-            user.setLogin(updatedUser.getLogin());
-            user.setPassword(updatedUser.getPassword());
-            user.setRoles(userService.getRole(values));
-            userService.updateUser(id, user);
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") long id) {
-        User user = userService.getUserById(id);
-        if (user != null) {
-            userService.removeUserById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 }
