@@ -44,10 +44,11 @@ public class AdminRestController {
     }
 
     @PutMapping("/updateUser/{id}")
-    public User updateUser(@PathVariable("id") long id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
         userService.updateUser(id, user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
 
     @DeleteMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") long id) {
